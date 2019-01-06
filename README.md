@@ -1,13 +1,13 @@
-## 7810ICT Software Technologies Assignment
+## 7810ICT -- Software Technologies Assignment
 
 ### Eliott de SEGUIER -- s5151654
 
 ---
 
-#### Requirements
-- Install **openpyxl** and **tabulare** package
+#### Guidelines
+- Install **openpyxl** and **tabulate** package
 - Be sure that **inspections.xlsx** and **violations.xlsx** files are at the 
-root of the project
+root of the project 
 
 ---
 
