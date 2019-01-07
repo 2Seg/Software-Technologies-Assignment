@@ -14,9 +14,8 @@ sheet.title = "Violations Types"
 
 # Calculate the number of each type of violations
 calculate_number_violations_q = """
-select violation_code, violation_description, count(violation_description) count_violations from violations
-group by violation_description
-order by violation_code
+SELECT violation_code, violation_description, COUNT(violation_description) count_violations FROM violations
+GROUP BY violation_description ORDER BY violation_code
 """
 
 res = cu.execute(calculate_number_violations_q).fetchall()

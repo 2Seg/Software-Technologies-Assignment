@@ -7,10 +7,10 @@ cu = co.cursor()
 
 # Distinctive businesses that have at least 1 violation ordered alphabetically query
 select_distinct_businesses_q = """
-select i.facility_name, i.facility_address, i.facility_zip, i.facility_city
-from inspections i join violations v on i.serial_number = v.serial_number
-group by i.facility_name having count(distinct v.serial_number) >= 1
-order by i.facility_name
+SELECT i.facility_name, i.facility_address, i.facility_zip, i.facility_city
+FROM inspections i JOIN violations v ON i.serial_number = v.serial_number
+GROUP BY i.facility_name HAVING COUNT(DISTINCT v.serial_number) >= 1
+ORDER BY i.facility_name
 """
 
 res1 = cu.execute(select_distinct_businesses_q).fetchall()
@@ -23,22 +23,22 @@ print(tabulate(res1_list, headers=['Businesses with at least 1 violation']))
 
 # 'previous_violations' table query
 create_prev_violations_table_q = """
-create table if not exists previous_violations (
-    facility_name text,
-    facility_address text,
-    facility_zip text,
-    facility_city text
+CREATE TABLE IF NOT EXISTS previous_violations (
+    facility_name TEXT,
+    facility_address TEXT,
+    facility_zip TEXT,
+    facility_city TEXT
 )
 """
 
 cu.execute(create_prev_violations_table_q)
 
 # Check if "inspections" table is empty or not
-count_lines_prev_violations_q = "select * from previous_violations"
+count_lines_prev_violations_q = "SELECT * FROM previous_violations"
 inspections_data = cu.execute(count_lines_prev_violations_q).fetchall()
 
 if inspections_data == []:
-    insert_into_prev_violations_table_q = """insert into previous_violations (facility_name, facility_address, facility_zip, facility_city) values """
+    insert_into_prev_violations_table_q = """INSERT INTO previous_violations VALUES """
     for r in res1:
         insert_into_prev_violations_table_q += """("{}", "{}", "{}", "{}"), """.format(
             r[0], r[1],
@@ -52,10 +52,10 @@ if inspections_data == []:
 
 # Count of the violations for each business that has at least one violation query
 count_violations_q = """
-select i.facility_name, count(distinct v.serial_number) count_serial_numbers
-from inspections i join violations v on i.serial_number = v.serial_number
-group by i.facility_name having count_serial_numbers >= 1
-order by count_serial_numbers desc
+SELECT i.facility_name, COUNT(DISTINCT v.serial_number) count_serial_numbers
+FROM inspections i JOIN violations v ON i.serial_number = v.serial_number
+GROUP BY i.facility_name HAVING count_serial_numbers >= 1
+ORDER BY count_serial_numbers DESC 
 """
 
 res2 = cu.execute(count_violations_q).fetchall()

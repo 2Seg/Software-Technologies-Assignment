@@ -10,38 +10,38 @@ cu = co.cursor()
 
 # 'inspections' table query
 create_inspections_table_q = """
-create table if not exists inspections (
-    activity_date numeric,
-    employee_id text,
-    facility_address text,
-    facility_city text,
-    facility_id text,
-    facility_name text,
-    facility_state text,
-    facility_zip text,
-    grade text,
-    owner_id text,
-    owner_name text,
-    pe_description text,
-    program_element_pe int,
-    program_name text,
-    program_status text,
-    record_id text,
-    score text,
-    serial_number text,
-    service_code int,
-    service_description text
+CREATE TABLE IF NOT EXISTS inspections (
+    activity_date NUMERIC,
+    employee_id TEXT,
+    facility_address TEXT,
+    facility_city TEXT,
+    facility_id TEXT,
+    facility_name TEXT,
+    facility_state TEXT,
+    facility_zip TEXT,
+    grade TEXT,
+    owner_id TEXT,
+    owner_name TEXT,
+    pe_description TEXT,
+    program_element_pe INT,
+    program_name TEXT,
+    program_status TEXT,
+    record_id TEXT,
+    score TEXT,
+    serial_number TEXT,
+    service_code INT,
+    service_description TEXT
 )
 """
 
 # 'violations' table query
 create_violations_table_q = """
-create table if not exists violations (
-    points int,
-    serial_number text,
-    violation_code text,
-    violation_description text,
-    violation_status text
+CREATE TABLE IF NOT EXISTS violations (
+    points INT,
+    serial_number TEXT,
+    violation_code TEXT,
+    violation_description TEXT,
+    violation_status TEXT
 )
 """
 
@@ -50,7 +50,7 @@ cu.execute(create_inspections_table_q)
 cu.execute(create_violations_table_q)
 
 # Check if "inspections" table is empty or not
-count_lines_inspections_q = "select * from inspections"
+count_lines_inspections_q = "SELECT * FROM inspections"
 inspections_data = cu.execute(count_lines_inspections_q).fetchall()
 
 if inspections_data == []:
@@ -59,7 +59,7 @@ if inspections_data == []:
     inspections_ws = inspections_wb['inspections']
 
     # Build the query
-    insert_into_inspections_table_q = """insert into inspections (activity_date, employee_id, facility_address, facility_city, facility_id, facility_name, facility_state, facility_zip, grade, owner_id, owner_name, pe_description, program_element_pe, program_name, program_status, record_id, score, serial_number, service_code, service_description) values """
+    insert_into_inspections_table_q = """INSERT INTO inspections VALUES """
     for r in inspections_ws.iter_rows(min_row=2, max_row=191372): # max row = 191372
         insert_into_inspections_table_q += """("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", {}, "{}", "{}", "{}", "{}", "{}", {}, "{}"), """.format(
             escape_quote(r[0].value), r[1].value,
@@ -79,7 +79,7 @@ if inspections_data == []:
     cu.execute(insert_into_inspections_table_q)
 
 # Check if "violations" table is empty
-count_lines_violations_q = "select * from violations"
+count_lines_violations_q = "SELECT * FROM violations"
 violations_data = cu.execute(count_lines_violations_q).fetchall()
 
 if violations_data == []:
@@ -88,7 +88,7 @@ if violations_data == []:
     violations_ws = violations_wb['violations']
 
     # Build the query
-    insert_into_violations_table_q = """insert into violations (points, serial_number, violation_code, violation_description, violation_status) values """
+    insert_into_violations_table_q = """INSERT INTO violations VALUES """
     for r in violations_ws.iter_rows(min_row=2, max_row=906015): # max row = 906015
         insert_into_violations_table_q += """({}, "{}", "{}", "{}", "{}"), """.format(
             r[0].value, escape_quote(r[1].value), escape_quote(r[2].value),

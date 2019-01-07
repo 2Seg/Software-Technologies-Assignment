@@ -14,4 +14,5 @@ root of the project
 #### Steps
 1. Run **create.db.py** file
 2. Run **sql_food.py** file
-3. Run **numpy_food.py** file
+3. Run **excel_food** file
+4. Run **numpy_food.py** file
