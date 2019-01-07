@@ -5,7 +5,7 @@
 ---
 
 #### Guidelines
-- Install **openpyxl** and **tabulate** package
+- Install **openpyxl**, **matplotlib** and **tabulate** package
 - Be sure that **inspections.xlsx** and **violations.xlsx** files are at the 
 root of the project 
 
@@ -14,4 +14,4 @@ root of the project
 #### Steps
 1. Run **create.db.py** file
 2. Run **sql_food.py** file
-3. 
+3. Run **numpy_food.py** file
