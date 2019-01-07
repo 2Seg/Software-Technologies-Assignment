@@ -1,4 +1,5 @@
 import sqlite3, datetime, matplotlib.pyplot as plt, re, dateutil.parser
+from tabulate import tabulate
 
 # Read the database
 co = sqlite3.connect("db.sqlite")
@@ -217,12 +218,11 @@ distinct_violations = {}
 for r in res6:
     distinct_violations[r[0]] = r[1]
 
-# Create a dictionary with only the violations which have the word 'food' in their description
-distinct_violations_with_food = {}
+# Create lists with only the violations which have the word 'food' in their description
+res_list = []
 for key in distinct_violations:
     if re.search("food", distinct_violations[key]):
-        distinct_violations_with_food[key] = distinct_violations[key]
+        res_list.append([key, distinct_violations[key]])
 
-# Print the 2 dictionaries to the console for comparison
-print(distinct_violations)
-print(distinct_violations_with_food)
+# Print the list to the console
+print(tabulate(res_list, headers=['Code', 'Description']))
