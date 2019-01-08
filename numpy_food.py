@@ -226,3 +226,5 @@ for key in distinct_violations:
 
 # Print the list to the console
 print(tabulate(res_list, headers=['Code', 'Description']))
+
+co.close()

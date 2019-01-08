@@ -100,3 +100,4 @@ if violations_data == []:
     cu.execute(insert_into_violations_table_q)
 
 co.commit()
+co.close()

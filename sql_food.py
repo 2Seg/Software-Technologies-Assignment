@@ -68,3 +68,5 @@ res2_list = []
 for r in res2:
     res2_list.append([r[0], r[1]])
 print(tabulate(res2_list, headers=['Businesses name', 'Number of violation']))
+
+co.close()

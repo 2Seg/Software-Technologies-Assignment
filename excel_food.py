@@ -36,3 +36,5 @@ for i, r in enumerate(res):
 
 # Save "ViolationTypes.xlsx" workbook
 wb.save("ViolationTypes.xlsx")
+
+co.close()
